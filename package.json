@@ -1,0 +1,39 @@
+{
+  "name": "c-c-c-comboooooo",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run-script test-browser && npm run-script test-node",
+    "test-node": "mocha --compilers js:babel/register tests/node/combostack.test.js --ui bdd",
+    "test-browser": "./node_modules/mocha-phantomjs/bin/mocha-phantomjs -p ./node_modules/phantomjs/bin/phantomjs tests/browser/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dxu/c-c-c-comboooooo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dxu/c-c-c-comboooooo/issues"
+  },
+  "homepage": "https://github.com/dxu/c-c-c-comboooooo",
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "babelify": "^6.3.0",
+    "browserify": "^11.2.0",
+    "chai": "^3.3.0",
+    "gulp": "^3.9.0",
+    "gulp-plumber": "^1.0.1",
+    "gulp-shell": "^0.5.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-util": "^3.0.6",
+    "mocha": "^2.3.3",
+    "mocha-phantomjs": "^4.0.1",
+    "phantomjs": "^1.9.18",
+    "uglify": "^0.1.5",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.4.0"
+  }
+}
