@@ -7,7 +7,8 @@ const gulp = require('gulp')
   , util = require('gulp-util')
   , watchify = require('watchify')
   , babelify = require('babelify')
-  , shell = require('gulp-shell');
+  , shell = require('gulp-shell')
+  , concat = require('gulp-concat')
 
 
 function compile(watch) {
@@ -29,7 +30,7 @@ function compile(watch) {
       .pipe(buffer())
       .pipe(sourcemaps.init({ loadMaps: true }))
       .pipe(sourcemaps.write('./'))
-      .pipe(gulp.dest('./dist'))
+      .pipe(gulp.dest('./dist/scripts'))
   }
 
   rebundle()
@@ -42,14 +43,33 @@ function compile(watch) {
   }
 }
 
-gulp.task('default', function() {
+gulp.task('templates', function() {
+  gulp.src('./templates/**/*.html')
+    .pipe(gulp.dest('./dist/templates'))
+});
+
+gulp.task('lib', function() {
+  gulp.src('./lib/**/*')
+    .pipe(gulp.dest('./dist/lib'))
+});
+
+// concat everything together
+gulp.task('styles', function() {
+  gulp.src('./src/styles/**/*.css')
+    .pipe(concat({ path: 'styles.css', stat: { mode: 0666 }}))
+    .pipe(gulp.dest('./dist/styles'))
+});
+
+gulp.task('dev-js', function() {
   compile(true)
 });
 
-gulp.task('build', function() {
+gulp.task('prod-js', function() {
   compile(false)
 });
 
 gulp.task('test', shell.task([
   'npm test'
 ]))
+
+gulp.task('default', ['dev-js', 'styles', 'templates', 'lib'])
