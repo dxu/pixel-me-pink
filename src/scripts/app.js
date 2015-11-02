@@ -1,6 +1,9 @@
 let scaleFactor
 const MAX_PIXELS = 30
 
+import {setupStore, pixelStore} from './store'
+import * as dispatchers from './dispatchers'
+
 function setupCanvas() {
   let context, size, pixel, canvas
   canvas = $('canvas').get(0)
@@ -58,11 +61,21 @@ function createPixel(ctx, x = 0, y = 0, color = {}) {
 
     })
 
-    createPixel(context, 1, 1, {
-      r: 0,
-      g: 0,
-      b: 0,
-      a: 255
+    setupStore()
+    dispatchers.addPixel({
+      coords: {
+        x: 1,
+        y: 1
+      },
+      color: {
+        r: 3,
+        g: 0,
+        b: 0,
+        a: 255
+      }
     })
+
+    console.log(pixelStore.getState())
+
   })
 })()
