@@ -45,7 +45,11 @@ function createPixel(ctx, x = 0, y = 0, color = {}) {
   ctx.fillRect(x, y, 1, 1)
 }
 
+
+
 (function() {
+  let store, unsubscribe
+  window.store = setupStore()
   $(function() {
     let canvas = setupCanvas()
       , context = canvas.getContext('2d')
@@ -54,28 +58,28 @@ function createPixel(ctx, x = 0, y = 0, color = {}) {
       console.log(evt)
 
       Math.floor(evt.offsetX / scaleFactor) * scaleFactor
-      createPixel(context,
-                  Math.floor(evt.offsetX / scaleFactor),
-                  Math.floor(evt.offsetY / scaleFactor),
-                  {})
 
+
+      dispatchers.addPixel({
+        coords: {
+          x: Math.floor(evt.offsetX / scaleFactor),
+          y: Math.floor(evt.offsetY / scaleFactor),
+        },
+        color: {
+          r: 0,
+          g: 0,
+          b: 0,
+          a: 255
+        }
+      })
     })
 
-    setupStore()
-    dispatchers.addPixel({
-      coords: {
-        x: 1,
-        y: 1
-      },
-      color: {
-        r: 3,
-        g: 0,
-        b: 0,
-        a: 255
-      }
-    })
+    unsubscribe = store.subscribe(() =>
+      // state changed
+      console.log(store.getState())
 
-    console.log(pixelStore.getState())
+    )
+
 
   })
 })()
