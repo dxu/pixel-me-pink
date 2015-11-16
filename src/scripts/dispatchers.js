@@ -1,4 +1,4 @@
-import {pixelStore} from './store'
+import {getStore} from './store'
 import {ADD_PIXEL, REMOVE_PIXEL} from './actions'
 
 export const addPixel = (options) => {
@@ -12,7 +12,7 @@ export const addPixel = (options) => {
   coords.x = coords.x || 0
   coords.y = coords.y || 0
 
-  pixelStore.dispatch({
+  getStore().dispatch({
     type: ADD_PIXEL,
     data: {
       color,
