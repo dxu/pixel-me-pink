@@ -6,8 +6,8 @@ export function pixels(state = [], action) {
     case 'ADD_PIXEL':
 
       let clone = Object.assign({}, state)
-      clone[action.data.coords.x] = clone[action.data.coords.x] || {}
-      clone[action.data.coords.x][action.data.coords.y] = {
+      clone[action.data.coords.y] = clone[action.data.coords.y] || {}
+      clone[action.data.coords.y][action.data.coords.x] = {
         color: action.data.color
       }
 
