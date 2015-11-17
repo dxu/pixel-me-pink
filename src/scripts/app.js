@@ -2,6 +2,7 @@ let scaleFactor
   , storeMemo  // the previous state of each row
 const MAX_PIXELS = 30
 
+window.storeMemo = storeMemo
 import {setupStore, pixelStore} from './store'
 import * as dispatchers from './dispatchers'
 import { createSelector } from 'reselect'
@@ -105,27 +106,31 @@ function createPixel(ctx, x = 0, y = 0, color = {}) {
     // for each row, subscribe, and select state, and on change,
     // select the row
     unsubscribe = store.subscribe(() => {
+      console.log('this is the storememo', storeMemo)
       let rowMap
       const newState = store.getState()
+      console.log(storeMemo === newState)
+      console.log(storeMemo.pixels[0] === newState.pixels[0])
 
       // state changed, go through and update canvas
       rowMap = rowSelection(newState)
       // run through rowMap
       for (let row in rowMap.pixels) {
         // console.log(row, storeMemo.pixels)
-        console.log('here', storeMemo.pixels[row], rowMap.pixels[row])
+        // console.log('here', storeMemo.pixels[row], rowMap.pixels[row])
+        // console.log(rowMap.pixels[row], storeMemo.pixels[row])
         if (rowMap.pixels[row] && rowMap.pixels[row] !== storeMemo.pixels[row]) {
-          console.log(rowMap.pixels[row])
+          // console.log(rowMap.pixels[row])
 
           // for every pixel in the row, if the color hasn't changed then
           // update the color
           for (let column in rowMap.pixels[row]) {
-            console.log('once')
+            // console.log('once')
             if (!rowMap.pixels[row]) {
-              console.log('shouldnt')
+              // console.log('shouldnt')
               continue
             }
-            console.log('column', column)
+            // console.log('column', column)
             let pixel1 = rowMap.pixels[row] && rowMap.pixels[row][column] || {}
               , pixel2 = storeMemo.pixels[row] && storeMemo.pixels[row][column] || {}
             if (!areSameColor(pixel1.colors, pixel2.colors)) {
@@ -140,6 +145,7 @@ function createPixel(ctx, x = 0, y = 0, color = {}) {
 
       // update the previous state
       storeMemo = newState
+      console.log('new state', newState)
 
     })
 

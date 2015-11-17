@@ -30,7 +30,7 @@ const createEnhancedStore = compose(
  * RETURNS AN Rx OBSERVABLE to mask the store from the client
  */
 export function setupStore() {
-  pixelStore = createEnhancedStore(pixelReducers, {pixels: []})
+  pixelStore = createEnhancedStore(pixelReducers, {pixels: {}})
   // TODO: create and return the observablePixelStore
   return pixelStore
 }

@@ -1,4 +1,4 @@
-export function pixels(state = [], action) {
+export function pixels(state = {}, action) {
   switch (action.type) {
     /*
      *
@@ -6,7 +6,9 @@ export function pixels(state = [], action) {
     case 'ADD_PIXEL':
 
       let clone = Object.assign({}, state)
-      clone[action.data.coords.y] = clone[action.data.coords.y] || {}
+      console.log(clone === state)
+      console.log(clone, state)
+      clone[action.data.coords.y] = Object.assign({}, clone[action.data.coords.y])
       clone[action.data.coords.y][action.data.coords.x] = {
         color: action.data.color
       }
