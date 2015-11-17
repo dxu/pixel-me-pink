@@ -43,6 +43,12 @@ function compile(watch) {
   }
 }
 
+gulp.task('watch', function() {
+  gulp.watch('./src/styles/**/*.css', ['styles'])
+  gulp.watch('./templates/**/*.html', ['templates'])
+  gulp.watch('./lib/**/*', ['lib'])
+})
+
 gulp.task('templates', function() {
   gulp.src('./templates/**/*.html')
     .pipe(gulp.dest('./dist/'))
@@ -72,6 +78,6 @@ gulp.task('test', shell.task([
   'npm test'
 ]))
 
-gulp.task('default', ['dev-js', 'styles', 'templates', 'lib'])
+gulp.task('default', ['dev-js', 'styles', 'templates', 'lib', 'watch'])
 
 gulp.task('build', ['prod-js', 'styles', 'templates', 'lib'])
