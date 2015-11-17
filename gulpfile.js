@@ -45,7 +45,7 @@ function compile(watch) {
 
 gulp.task('templates', function() {
   gulp.src('./templates/**/*.html')
-    .pipe(gulp.dest('./dist/templates'))
+    .pipe(gulp.dest('./dist/'))
 });
 
 gulp.task('lib', function() {
@@ -73,3 +73,5 @@ gulp.task('test', shell.task([
 ]))
 
 gulp.task('default', ['dev-js', 'styles', 'templates', 'lib'])
+
+gulp.task('build', ['prod-js', 'styles', 'templates', 'lib'])
