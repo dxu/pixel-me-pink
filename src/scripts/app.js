@@ -116,7 +116,7 @@ const drawBox = (function() {
           }
         })
       }
-    }, 20))
+    }, 50))
 
     rowSelectors = []
 
