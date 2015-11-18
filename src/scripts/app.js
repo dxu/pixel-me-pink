@@ -68,12 +68,10 @@ const drawBox = (function() {
       b: 255,
       a: 255
     }
-    console.log(oldColor, r, g, b, a, y, x)
 
     // with old color
     ctx.fillStyle =
       `rgba(${oldColor.r || 0}, ${oldColor.g || 0},${oldColor.b || 0}, ${oldColor.a || 255})`
-    console.log(ctx.fillStyle)
     ctx.fillRect(lastCoords.x, lastCoords.y, 1, 1)
 
     ctx.fillStyle = `rgba(${r || 0}, ${g || 0},${b || 0}, ${a || 255})`
