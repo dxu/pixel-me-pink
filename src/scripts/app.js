@@ -1,12 +1,13 @@
 let scaleFactor
   , storeMemo  // the previous state of each row
+  , mouseDown
 const MAX_PIXELS = 30
 
 window.storeMemo = storeMemo
 import {setupStore, pixelStore} from './store'
 import * as dispatchers from './dispatchers'
 import { createSelector } from 'reselect'
-import { areSameColor } from './util'
+import { areSameColor, throttle } from './util'
 
 let currentColor = {
   r: 245,
@@ -92,28 +93,32 @@ const drawBox = (function() {
     let canvas = setupCanvas()
       , context = canvas.getContext('2d')
 
-    canvas.addEventListener('click', function(evt) {
-      Math.floor(evt.offsetX / scaleFactor) * scaleFactor
-      dispatchers.addPixel({
-        coords: {
-          x: Math.floor(evt.offsetX / scaleFactor),
-          y: Math.floor(evt.offsetY / scaleFactor),
-        },
-        color: {
-          r: 0,
-          g: 0,
-          b: 0,
-          a: 255
-        }
-      })
+    canvas.addEventListener('mousedown', function(evt) {
+      mouseDown = true
     })
 
-    canvas.addEventListener('mousemove', function(evt) {
-      Math.floor()
-      console.log('hoy')
+    document.addEventListener('mouseup', function(evt) {
+      mouseDown = false
+    })
+
+    canvas.addEventListener('mousemove', throttle(function(evt) {
       drawBox(context, Math.floor(evt.offsetX / scaleFactor), Math.floor(evt.offsetY / scaleFactor), currentColor)
-    })
 
+      if (mouseDown) {
+        dispatchers.addPixel({
+          coords: {
+            x: Math.floor(evt.offsetX / scaleFactor),
+            y: Math.floor(evt.offsetY / scaleFactor),
+          },
+          color: {
+            r: 0,
+            g: 0,
+            b: 0,
+            a: 255
+          }
+        })
+      }
+    }, 20))
 
     rowSelectors = []
 
