@@ -2,8 +2,8 @@
 /*
  * ADD_PIXEL:
  * data: {
- *   x: x-coordinate
- *   y: y-coordinate
+ *   row: y-coordinate
+ *   column: x-coordinate
  *   r: red
  *   g: green
  *   b: blue
@@ -15,8 +15,8 @@ export var ADD_PIXEL = 'ADD_PIXEL'
 /*
  * ADD_PIXEL:
  * data: {
- *   x: x-coordinate
- *   y: y-coordinate
+ *   row: y-coordinate
+ *   column: x-coordinate
  *   r: red
  *   g: green
  *   b: blue

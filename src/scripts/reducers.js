@@ -8,8 +8,8 @@ export function pixels(state = {}, action) {
       let clone = Object.assign({}, state)
       console.log(clone === state)
       console.log(clone, state)
-      clone[action.data.coords.y] = Object.assign({}, clone[action.data.coords.y])
-      clone[action.data.coords.y][action.data.coords.x] = {
+      clone[action.data.row] = Object.assign({}, clone[action.data.row])
+      clone[action.data.row][action.data.column] = {
         color: action.data.color
       }
 

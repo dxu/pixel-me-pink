@@ -57,17 +57,17 @@ const drawBox = (function() {
     y: 0
   }
   return function(ctx, x, y, color = {}) {
-    console.log('hi')
     const {r, g, b, a} = color
     // color the lastCoords based on the current state of the store
-    const pixel = store.getState().pixels[x]
-    const oldColor = pixel && pixel[y] || {
+    // y == rows, x == columns
+    const pixel = store.getState().pixels[lastCoords.y]
+    const oldColor = (pixel && pixel[lastCoords.x] && pixel[lastCoords.x].color) || {
       r: 255,
       g: 255,
       b: 255,
       a: 255
     }
-    console.log(oldColor, r, g, b, a)
+    console.log(oldColor, r, g, b, a, y, x)
 
     // with old color
     ctx.fillStyle =

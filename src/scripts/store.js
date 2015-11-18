@@ -21,8 +21,8 @@ const createEnhancedStore = compose(
  * of rows to columns, with the leaf nodes representing the pixel metadata.
  * {
  *   pixels: {
- *     <x>:
- *       <y>:
+ *     <row(y)>:
+ *       <column(x)>:
  *         color: <color>
  *   }
  *

@@ -9,14 +9,15 @@ export const addPixel = (options) => {
   color.b = color.b || 0
   color.a = color.a || 255
 
-  coords.x = coords.x || 0
-  coords.y = coords.y || 0
+  coords.column = coords.x || 0
+  coords.row = coords.y || 0
 
   getStore().dispatch({
     type: ADD_PIXEL,
     data: {
       color,
-      coords
+      row: coords.y,
+      column: coords.x
     }
   })
 }
