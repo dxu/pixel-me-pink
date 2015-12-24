@@ -3,8 +3,10 @@ let scaleFactor
   , mouseDown
 const MAX_PIXELS = 30
 
+const PADDING = 30
+
 window.storeMemo = storeMemo
-import {setupStore, pixelStore} from './store'
+import { setupStore, pixelStore } from './store'
 import * as dispatchers from './dispatchers'
 import { createSelector } from 'reselect'
 import { areSameColor, throttle } from './util'
@@ -20,7 +22,7 @@ function setupCanvas() {
   let context, size, pixel, canvas
   canvas = $('canvas').get(0)
   context = canvas.getContext('2d')
-  size = Math.min(document.body.clientWidth, document.body.clientHeight)
+  size = Math.min(document.body.clientWidth - PADDING * 2, document.body.clientHeight - PADDING * 2)
   // round off to be divisible by MAX_PIXELS
   size = size - size % MAX_PIXELS
   canvas.width = size
@@ -52,6 +54,7 @@ function createPixel(ctx, x = 0, y = 0, color = {}) {
   ctx.fillStyle = `rgba(${r || 0}, ${g || 0},${b || 0}, ${a || 255})`
   ctx.fillRect(x, y, 1, 1)
 }
+
 const drawBox = (function() {
   let lastCoords = {
     x: 0,
@@ -81,7 +84,6 @@ const drawBox = (function() {
   }
 })();
 
-
 (function() {
   let store
   window.store = store = setupStore()
@@ -90,6 +92,22 @@ const drawBox = (function() {
     let unsubscribe, rowSelectors, rowSelection
     let canvas = setupCanvas()
       , context = canvas.getContext('2d')
+
+    canvas.addEventListener('click', function(evt) {
+      Math.floor(evt.offsetX / scaleFactor) * scaleFactor
+      dispatchers.addPixel({
+        coords: {
+          x: Math.floor(evt.offsetX / scaleFactor),
+          y: Math.floor(evt.offsetY / scaleFactor),
+        },
+        color: {
+          r: 0,
+          g: 0,
+          b: 0,
+          a: 255
+        }
+      })
+    })
 
     canvas.addEventListener('mousedown', function(evt) {
       mouseDown = true
